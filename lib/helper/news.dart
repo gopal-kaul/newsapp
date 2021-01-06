@@ -9,7 +9,7 @@ class News {
   Future<void> getNews() async {
     try {
       String url =
-          'https://categorynewsapi.org/v2/top-headlines?country=in&apiKey=f5730244c3e54cab99790606c54aa08a';
+          'https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=in&apiKey=f5730244c3e54cab99790606c54aa08a';
       var result = await http.get(url);
       var jsondata = json.decode(result.body);
       if (jsondata['status'] == 'ok') {
@@ -38,7 +38,7 @@ class Categorynews {
   Future<void> getcategorynews(String category) async {
     try {
       String url =
-          'https://newsapi.org/v2/top-headlines?category=$category&country=in&apiKey=f5730244c3e54cab99790606c54aa08a';
+          'https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?category=$category&country=in&apiKey=f5730244c3e54cab99790606c54aa08a';
       var result = await http.get(url);
       var jsondata = json.decode(result.body);
       if (jsondata['status'] == 'ok') {

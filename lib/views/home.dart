@@ -36,33 +36,34 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('News '),
-            Text(
-              'App',
-              style: TextStyle(color: Colors.white),
-            )
-          ],
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'News App',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+          centerTitle: true,
+          elevation: 0.0,
         ),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      body: _loading
-          ? Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : SingleChildScrollView(
-              physics: ClampingScrollPhysics(),
-              child: Container(
+        body: _loading
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Container(
+                color: Color.fromRGBO(0, 0, 0, 0.5),
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.fromLTRB(16.0, 15.0, 16.0, 0),
                       height: 200.0,
                       child: ListView.builder(
                           itemCount: categories.length,
@@ -75,25 +76,26 @@ class _HomeState extends State<Home> {
                             );
                           }),
                     ),
-                    Container(
-                      child: ListView.builder(
-                        itemCount: articles.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ArticleTile(
-                            imageurl: articles[index].urlimage,
-                            title: articles[index].title,
-                            desc: articles[index].description,
-                            url: articles[index].url,
-                          );
-                        },
+                    Expanded(
+                      flex: 15,
+                      child: Container(
+                        child: ListView.builder(
+                          itemCount: articles.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ArticleTile(
+                              imageurl: articles[index].urlimage,
+                              title: articles[index].title,
+                              desc: articles[index].description,
+                              url: articles[index].url,
+                            );
+                          },
+                        ),
                       ),
                     )
                   ],
                 ),
-              ),
-            ),
-    );
+              ));
   }
 }
 
@@ -112,7 +114,7 @@ class CategoryTile extends StatelessWidget {
                     )));
       },
       child: Container(
-        margin: EdgeInsets.only(right: 16.0),
+        margin: EdgeInsets.only(right: 15.0),
         child: Stack(
           children: <Widget>[
             ClipRRect(
@@ -120,14 +122,14 @@ class CategoryTile extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: imageurl,
                 fit: BoxFit.cover,
-                width: 150,
-                height: 100,
+                width: 250,
+                height: 166,
               ),
             ),
             Container(
               alignment: Alignment.center,
-              width: 150,
-              height: 100,
+              width: 250,
+              height: 166,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 color: Colors.black26,
@@ -136,7 +138,7 @@ class CategoryTile extends StatelessWidget {
                 categoryname,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -155,24 +157,46 @@ class ArticleTile extends StatelessWidget {
     return GestureDetector(
       onTap: () => _launchURL(url),
       child: Container(
-        padding: EdgeInsets.only(top: 20.0),
+        padding: EdgeInsets.only(top: 15.0),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-                borderRadius: BorderRadius.circular(7),
-                child: Image.network(imageurl)),
-            Text(
-              title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 3,
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(7),
+                  child: Image.network(
+                    imageurl,
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 8.0,
             ),
-            Text(desc,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.0))
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(desc,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.0)),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
           ],
         ),
       ),

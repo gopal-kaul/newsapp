@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'News App',
       theme: ThemeData(
-          primarySwatch: Colors.lightBlue, primaryColor: Colors.lightBlue),
+        primarySwatch: Colors.lightBlue,
+        primaryColor: Colors.lightBlue,
+        brightness: Brightness.dark,
+      ),
       home: Home(),
     );
   }
